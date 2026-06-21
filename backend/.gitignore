@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Uploads
+app/uploads/*
+!app/uploads/.gitkeep
+!app/uploads/reports/.gitkeep
+!app/uploads/training/.gitkeep
+
+# Large datasets
+data/raw/
+data/external/
+data/gbif/
+data/nasa/
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# Database dumps
+*.sql.backup
+*.dump
+*.backup
+*.sqlite
+*.db
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Node / frontend later
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Jupyter / ML later
+.ipynb_checkpoints/
+models/
+checkpoints/
+*.pt
+*.pth
+*.h5
+*.keras
