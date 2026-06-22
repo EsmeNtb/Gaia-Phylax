@@ -68,3 +68,7 @@ checkpoints/
 *.pth
 *.h5
 *.keras
+
+# DATASETS
+raw/
+processed/

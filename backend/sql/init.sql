@@ -1,347 +1,145 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- ===========================================
--- DATA SOURCES
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS data_sources (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    source_type TEXT,
-    license TEXT,
-    attribution_text TEXT,
-    source_url TEXT,
-    last_updated DATE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists species_reference (
+  id uuid primary key default gen_random_uuid(),
+  gbif_key text,
+  common_name text not null,
+  scientific_name text not null,
+  kingdom text,
+  class_name text,
+  order_name text,
+  family text,
+  genus text,
+  taxon_rank text,
+  conservation_note text,
+  short_description text,
+  region text,
+  image_url text,
+  source text default 'GBIF',
+  license text default 'CC BY 4.0',
+  attribution text,
+  created_at timestamp with time zone default now()
 );
 
--- ===========================================
--- SPECIES REFERENCE
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS species_reference (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    gbif_key TEXT,
-    scientific_name TEXT NOT NULL,
-    common_name TEXT,
-
-    kingdom TEXT,
-    class_name TEXT,
-    order_name TEXT,
-    family TEXT,
-    genus TEXT,
-    taxon_rank TEXT,
-
-    region TEXT,
-    conservation_notes TEXT,
-    short_description TEXT,
-    is_sensitive_location BOOLEAN DEFAULT FALSE,
-
-    source TEXT,
-    license TEXT,
-    attribution TEXT,
-    image_url TEXT,
-
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists citizen_reports (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  description text not null,
+  category text not null,
+  latitude numeric not null,
+  longitude numeric not null,
+  country text,
+  city text,
+  urgency text default 'medium',
+  status text default 'unverified',
+  image_url text,
+  related_species text,
+  ai_category text,
+  ai_summary text,
+  created_at timestamp with time zone default now()
 );
 
-CREATE INDEX IF NOT EXISTS species_scientific_name_idx 
-ON species_reference (scientific_name);
-
-CREATE INDEX IF NOT EXISTS species_common_name_idx 
-ON species_reference (common_name);
-
--- ===========================================
--- CITIZEN REPORTS
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS citizen_reports (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
-    title TEXT NOT NULL,
-    description TEXT,
-
-    category TEXT NOT NULL CHECK (
-        category IN (
-            'pollution',
-            'fire',
-            'deforestation',
-            'habitat_damage',
-            'injured_animal',
-            'species_sighting',
-            'illegal_activity',
-            'other'
-        )
-    ),
-
-    urgency TEXT NOT NULL CHECK (
-        urgency IN (
-            'low',
-            'medium',
-            'high',
-            'critical'
-        )
-    ),
-
-    status TEXT NOT NULL DEFAULT 'unverified' CHECK (
-        status IN (
-            'unverified',
-            'reviewing',
-            'resolved',
-            'false_report',
-            'closed'
-        )
-    ),
-
-    latitude DOUBLE PRECISION NOT NULL,
-    longitude DOUBLE PRECISION NOT NULL,
-    location GEOGRAPHY(Point, 4326),
-
-    public_latitude DOUBLE PRECISION,
-    public_longitude DOUBLE PRECISION,
-
-    country TEXT,
-    city TEXT,
-
-    image_url TEXT,
-
-    ai_category TEXT,
-    ai_summary TEXT,
-    ai_urgency TEXT CHECK (
-        ai_urgency IN (
-            'low',
-            'medium',
-            'high',
-            'critical'
-        )
-    ),
-
-    related_species_id UUID REFERENCES species_reference(id) ON DELETE SET NULL,
-
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists environmental_events (
+  id uuid primary key default gen_random_uuid(),
+  event_type text not null default 'fire',
+  latitude numeric not null,
+  longitude numeric not null,
+  country text,
+  region text,
+  detected_at timestamp with time zone,
+  confidence text,
+  brightness numeric,
+  frp numeric,
+  satellite text,
+  instrument text,
+  source text default 'NASA FIRMS',
+  source_url text,
+  created_at timestamp with time zone default now()
 );
 
-CREATE OR REPLACE FUNCTION set_report_location()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.location = ST_SetSRID(ST_MakePoint(NEW.longitude, NEW.latitude), 4326)::geography;
-
-    IF NEW.public_latitude IS NULL THEN
-        NEW.public_latitude = NEW.latitude;
-    END IF;
-
-    IF NEW.public_longitude IS NULL THEN
-        NEW.public_longitude = NEW.longitude;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS trigger_set_report_location ON citizen_reports;
-
-CREATE TRIGGER trigger_set_report_location
-BEFORE INSERT OR UPDATE ON citizen_reports
-FOR EACH ROW
-EXECUTE FUNCTION set_report_location();
-
-CREATE INDEX IF NOT EXISTS citizen_reports_location_idx
-ON citizen_reports
-USING GIST (location);
-
-CREATE INDEX IF NOT EXISTS citizen_reports_category_idx
-ON citizen_reports (category);
-
-CREATE INDEX IF NOT EXISTS citizen_reports_urgency_idx
-ON citizen_reports (urgency);
-
--- ===========================================
--- REPORT IMAGES
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS report_images (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    report_id UUID REFERENCES citizen_reports(id) ON DELETE CASCADE,
-    image_url TEXT NOT NULL,
-    image_type TEXT DEFAULT 'report_photo',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists fire_nasa (
+  id bigserial primary key,
+  latitude double precision,
+  longitude double precision,
+  confidence text,
+  frp double precision,
+  brightness double precision,
+  daynight text,
+  detected_at_utc timestamp,
+  fire_intensity text
 );
 
--- ===========================================
--- SPECIES OCCURRENCES
--- ===========================================
+create index if not exists idx_fire_nasa_intensity
+on fire_nasa(fire_intensity);
 
-CREATE TABLE IF NOT EXISTS species_occurrences (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+create index if not exists idx_fire_nasa_detected_at
+on fire_nasa(detected_at_utc);
 
-    gbif_occurrence_key TEXT,
-    species_id UUID REFERENCES species_reference(id) ON DELETE SET NULL,
+create index if not exists idx_fire_nasa_location
+on fire_nasa(latitude, longitude);
 
-    scientific_name TEXT NOT NULL,
-
-    latitude DOUBLE PRECISION NOT NULL,
-    longitude DOUBLE PRECISION NOT NULL,
-    location GEOGRAPHY(Point, 4326),
-
-    event_date DATE,
-    country TEXT,
-    basis_of_record TEXT,
-
-    license TEXT,
-    source_dataset TEXT,
-    source_url TEXT,
-
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists animalia_species_catalog (
+  id bigserial primary key,
+  taxon_id bigint,
+  parent_name_usage_id bigint,
+  accepted_name_usage_id bigint,
+  taxonomic_status text,
+  taxon_rank text,
+  scientific_name text,
+  scientific_name_authorship text,
+  kingdom text,
+  phylum text,
+  class_name text,
+  order_name text,
+  family text,
+  genus text,
+  higher_classification text,
+  tax_group text
 );
 
-CREATE OR REPLACE FUNCTION set_occurrence_location()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.location = ST_SetSRID(ST_MakePoint(NEW.longitude, NEW.latitude), 4326)::geography;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+create index if not exists idx_species_scientific_name
+on animalia_species_catalog(scientific_name);
 
-DROP TRIGGER IF EXISTS trigger_set_occurrence_location ON species_occurrences;
+create index if not exists idx_species_taxon_rank
+on animalia_species_catalog(taxon_rank);
 
-CREATE TRIGGER trigger_set_occurrence_location
-BEFORE INSERT OR UPDATE ON species_occurrences
-FOR EACH ROW
-EXECUTE FUNCTION set_occurrence_location();
-
-CREATE INDEX IF NOT EXISTS species_occurrences_location_idx
-ON species_occurrences
-USING GIST (location);
-
--- ===========================================
--- ENVIRONMENTAL EVENTS
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS environmental_events (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
-    event_type TEXT NOT NULL CHECK (
-        event_type IN (
-            'fire',
-            'flood',
-            'drought',
-            'deforestation',
-            'storm',
-            'heatwave',
-            'other'
-        )
-    ),
-
-    latitude DOUBLE PRECISION NOT NULL,
-    longitude DOUBLE PRECISION NOT NULL,
-    location GEOGRAPHY(Point, 4326),
-
-    public_latitude DOUBLE PRECISION,
-    public_longitude DOUBLE PRECISION,
-
-    confidence TEXT,
-    source TEXT,
-    source_url TEXT,
-
-    detected_at TIMESTAMPTZ,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists animalia_taxonomy (
+  id bigserial primary key,
+  taxon_id bigint,
+  parent_name_usage_id bigint,
+  accepted_name_usage_id bigint,
+  taxonomic_status text,
+  taxon_rank text,
+  scientific_name text,
+  scientific_name_authorship text,
+  kingdom text,
+  phylum text,
+  class_name text,
+  order_name text,
+  family text,
+  genus text,
+  higher_classification text,
+  tax_group text
 );
 
-CREATE OR REPLACE FUNCTION set_environmental_event_location()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.location = ST_SetSRID(ST_MakePoint(NEW.longitude, NEW.latitude), 4326)::geography;
+create index if not exists idx_taxonomy_scientific_name
+on animalia_taxonomy(scientific_name);
 
-    IF NEW.public_latitude IS NULL THEN
-        NEW.public_latitude = NEW.latitude;
-    END IF;
+create index if not exists idx_taxonomy_taxon_id
+on animalia_taxonomy(taxon_id);
 
-    IF NEW.public_longitude IS NULL THEN
-        NEW.public_longitude = NEW.longitude;
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS trigger_set_environmental_event_location ON environmental_events;
-
-CREATE TRIGGER trigger_set_environmental_event_location
-BEFORE INSERT OR UPDATE ON environmental_events
-FOR EACH ROW
-EXECUTE FUNCTION set_environmental_event_location();
-
-CREATE INDEX IF NOT EXISTS environmental_events_location_idx
-ON environmental_events
-USING GIST (location);
-
--- ===========================================
--- MODEL PREDICTIONS
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS model_predictions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
-    report_id UUID REFERENCES citizen_reports(id) ON DELETE CASCADE,
-
-    predicted_common_name TEXT,
-    predicted_scientific_name TEXT,
-    confidence DOUBLE PRECISION,
-
-    model_name TEXT DEFAULT 'gaia-animal-identifier',
-    model_version TEXT DEFAULT 'prototype',
-
-    prediction_status TEXT NOT NULL DEFAULT 'pending' CHECK (
-        prediction_status IN (
-            'unverified',
-            'pending',
-            'completed',
-            'needs_review',
-            'failed'
-        )
-    ),
-
-    notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- ===========================================
--- TRAINING IMAGES
--- ===========================================
-
-CREATE TABLE IF NOT EXISTS training_images (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
-    image_url TEXT NOT NULL,
-
-    label_common_name TEXT,
-    label_scientific_name TEXT,
-    species_id UUID REFERENCES species_reference(id) ON DELETE SET NULL,
-
-    source TEXT DEFAULT 'gaia_user_submission',
-    license TEXT,
-    attribution TEXT,
-
-    split TEXT NOT NULL DEFAULT 'unassigned' CHECK (
-        split IN (
-            'train',
-            'validation',
-            'test',
-            'unassigned'
-        )
-    ),
-
-    review_status BOOLEAN DEFAULT FALSE,
-    usable_for_training BOOLEAN DEFAULT FALSE,
-
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+create table if not exists citizen_reports (
+  id bigserial primary key,
+  title text,
+  description text,
+  category text,
+  latitude double precision,
+  longitude double precision,
+  country text,
+  city text,
+  urgency text,
+  status text,
+  related_species text,
+  created_at timestamp with time zone default now()
 );
