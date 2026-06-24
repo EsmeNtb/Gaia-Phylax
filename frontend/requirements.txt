@@ -1,0 +1,10 @@
+uvicorn==0.49.0
+watchfiles==1.2.0
+wcwidth==0.2.14
+webcolors==25.10.0
+webencodings==0.5.1
+websocket-client==1.9.0
+websockets==16.0
+Werkzeug==3.1.4
+wheel==0.45.1
+wrapt==2.0.1
