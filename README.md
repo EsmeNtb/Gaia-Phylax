@@ -69,26 +69,21 @@ Ai is used to support the platform by helping classify reports summarize local i
 ----
 ## Tech Stack
 Frontend:
-- Next.js
-- TypeScript
-- Tailwind CSS
+- Rect
 
 Backend:
 - Supbase
 - PostgreSQL
 
-MAP:
-Mapboc GL JS
-
-
 ## How to run
+Backend:
+```bash
 cd backend
-´´´
 .\.venv\Scripts\activate 
 uvicorn main:app --reload
-´´´
-
+```
+Frontend:
+```bash+
 cd frontend
-´´´
 npm run dev
-´´´
+```
