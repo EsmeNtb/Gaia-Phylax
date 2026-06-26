@@ -23,11 +23,11 @@ function HomePage() {
           </p>
 
           <div className="home-actions">
-            <Link className="primary-link" to="/map">
+            <Link className="primary-link" to="/auth">
               Open live map
             </Link>
 
-            <Link className="secondary-link" to="/report">
+            <Link className="secondary-link" to="/auth">
               Create report
             </Link>
           </div>
