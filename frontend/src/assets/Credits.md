@@ -33,3 +33,18 @@ https://icons8.com/icon/hI9RNzS2uGWz/siren
 
 Bird:
 https://icons8.com/icon/E0aHuh6i8oer/bird
+
+Earth:
+https://iconos8.es/icon/55207/earth-planet
+
+Planta:
+https://iconos8.es/icon/HfDGGtOKCv0x/seedling
+
+Fire: 
+https://iconos8.es/icon/JAo7Mwb0C1z5/fire
+
+Iguana:
+https://iconos8.es/icon/Q7Djp8RAnAMi/iguana
+
+Pin:
+https://iconos8.es/icon/hg9ITgrfau9q/pin
