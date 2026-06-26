@@ -48,3 +48,9 @@ https://iconos8.es/icon/Q7Djp8RAnAMi/iguana
 
 Pin:
 https://iconos8.es/icon/hg9ITgrfau9q/pin
+
+Map:
+https://iconos8.es/icon/107436/address
+
+Megafono:
+https://iconos8.es/icon/Qe9Aydjm5wC5/megaphone

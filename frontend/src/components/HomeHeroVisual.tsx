@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 import iconEarth from "../assets/earth.png";
 import iconFire from "../assets/fireHome.png";
 import iconPin from "../assets/home_pin.png";
 import iconIguana from "../assets/iguana.png";
-import { Link } from "react-router-dom";
+import iconSeed from "../assets/seed.png";
 
 function HomeHeroVisual() {
   return (
@@ -11,8 +13,11 @@ function HomeHeroVisual() {
 
       <div className="visual-map-card">
         <div className="visual-header">
+          <span className="visual-title">
             <img src={iconEarth} alt="Earth" />
-          Planet pulse
+            Planet pulse
+          </span>
+
           <strong>Live</strong>
         </div>
 
