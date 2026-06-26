@@ -34,13 +34,19 @@ function AuthPage() {
 
       if (mode === "login") {
         await signIn(email.trim(), password);
-      } else {
-        await signUp(email.trim(), password, name.trim());
+        navigate("/map");
+        return;
       }
 
-      navigate("/map");
+      await signUp(email.trim(), password, name.trim());
+
+      setMessage("Account created. You can now log in.");
+      setMode("login");
+      setPassword("");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Authentication failed.");
+      setMessage(
+        error instanceof Error ? error.message : "Authentication failed."
+      );
     } finally {
       setLoading(false);
     }
@@ -109,18 +115,17 @@ function AuthPage() {
           {message && <p className="form-message">{message}</p>}
 
           <button className="primary-link auth-submit" disabled={loading}>
-            {loading
-              ? "Working..."
-              : mode === "login"
-                ? "Login"
-                : "Sign Up"}
+            {loading ? "Working..." : mode === "login" ? "Login" : "Sign Up"}
           </button>
         </form>
 
         <button
           className="auth-switch"
           type="button"
-          onClick={() => setMode(mode === "login" ? "signup" : "login")}
+          onClick={() => {
+            setMessage("");
+            setMode(mode === "login" ? "signup" : "login");
+          }}
         >
           {mode === "login"
             ? "No account yet? Sign up"
