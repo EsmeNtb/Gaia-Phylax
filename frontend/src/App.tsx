@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import AuthPage from "./pages/AuthPage";
 import MapPage from "./pages/MapPage";
 import BoardPage from "./pages/BoardPage";
 import ReportPage from "./pages/ReportPage";
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/board" element={<BoardPage />} />
         <Route path="/report" element={<ReportPage />} />

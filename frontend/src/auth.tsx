@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { api, clearToken, getToken, saveToken } from "@/src/api";
-
+import { api, clearToken, getToken, saveToken } from "./api/client";
 export type GaiaUser = {
   user_id: string;
   email: string;
