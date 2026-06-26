@@ -4,7 +4,7 @@ function HomePage() {
   return (
     <main className="home-page">
       <nav className="home-nav">
-        <strong>🐸 Gaia Phylax</strong>
+        <strong> Gaia Phylax</strong>
         <Link to="/map">Enter</Link>
       </nav>
 
@@ -16,17 +16,11 @@ function HomePage() {
             Report pollution, fires, injured wildlife, and species at risk.
             Explore live signals and grow your guardian impact.
           </p>
-
-          <div className="home-actions">
-            <Link className="primary-link" to="/map">Start protecting</Link>
-            <Link className="secondary-link" to="/board">See the board</Link>
-          </div>
         </div>
 
         <div className="hero-photo">
           <img
-            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
-            alt="Green landscape"
+            src="../assets/photo_main.png"
           />
         </div>
       </section>
