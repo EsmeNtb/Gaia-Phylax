@@ -103,6 +103,75 @@ function BoardPage() {
     loadReports();
   }, []);
 
+function updateReportCounts(
+  reportId: string,
+  counts: { view_count: number; boost_count: number }
+) {
+  setReports((currentReports) =>
+    currentReports.map((report) =>
+      report.id === reportId
+        ? {
+            ...report,
+            view_count: counts.view_count,
+            boost_count: counts.boost_count,
+          }
+        : report
+    )
+  );
+
+  setSelectedReport((currentReport) =>
+    currentReport?.id === reportId
+      ? {
+          ...currentReport,
+          view_count: counts.view_count,
+          boost_count: counts.boost_count,
+        }
+      : currentReport
+  );
+}
+
+async function handleOpenReport(report: BoardReport) {
+  setSelectedReport(report);
+
+  const viewKey = `gaia.viewed_report.${report.id}`;
+
+  if (localStorage.getItem(viewKey)) {
+    return;
+  }
+
+  localStorage.setItem(viewKey, "true");
+
+  try {
+    const counts = await api.viewReport(report.id);
+    updateReportCounts(report.id, counts);
+  } catch (error) {
+    console.error("Failed to count report view:", error);
+  }
+}
+
+async function handleBoostReport() {
+  if (!selectedReport) return;
+
+  const boostKey = `gaia.boosted_report.${selectedReport.id}`;
+
+  if (localStorage.getItem(boostKey)) {
+    return;
+  }
+
+  localStorage.setItem(boostKey, "true");
+
+  try {
+    const counts = await api.boostReport(selectedReport.id);
+    updateReportCounts(selectedReport.id, counts);
+  } catch (error) {
+    console.error("Failed to boost report:", error);
+  }
+}
+
+function hasBoosted(reportId: string) {
+  return localStorage.getItem(`gaia.boosted_report.${reportId}`) === "true";
+}
+
   return (
     <main className="board-page">
       <header className="board-header">
@@ -151,7 +220,7 @@ function BoardPage() {
             <button
               className={`postcard-card tilt-${index % 4}`}
               key={report.id}
-              onClick={() => setSelectedReport(report)}
+              onClick={() => handleOpenReport(report)}
             >
               <span className="push-pin" />
 
@@ -271,8 +340,13 @@ function BoardPage() {
               </div>
             </a>
 
-            <button className="boost-button">
-              ♡ Boost this signal
+            <button
+              type="button"
+              className="boost-button"
+              onClick={handleBoostReport}
+              disabled={hasBoosted(selectedReport.id)}
+            >
+              {hasBoosted(selectedReport.id) ? "Boosted signal" : "♡ Boost this signal"}
               <span>{selectedReport.boost_count || 0}</span>
             </button>
           </article>

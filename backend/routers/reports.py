@@ -41,3 +41,37 @@ def create_report(report: CitizenReportCreate):
     )
 
     return response.data
+
+
+@router.post("/{report_id}/view")
+def increment_report_view(report_id: str):
+    response = supabase.rpc(
+        "increment_report_view",
+        {"report_id_input": report_id}
+    ).execute()
+
+    if not response.data:
+        return {
+            "id": report_id,
+            "view_count": 0,
+            "boost_count": 0,
+        }
+
+    return response.data[0]
+
+
+@router.post("/{report_id}/boost")
+def boost_report(report_id: str):
+    response = supabase.rpc(
+        "boost_report",
+        {"report_id_input": report_id}
+    ).execute()
+
+    if not response.data:
+        return {
+            "id": report_id,
+            "view_count": 0,
+            "boost_count": 0,
+        }
+
+    return response.data[0]

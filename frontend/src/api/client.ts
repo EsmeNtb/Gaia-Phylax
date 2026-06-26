@@ -26,6 +26,8 @@ export type CitizenReport = {
   status?: string;
   related_species?: string;
   created_at?: string;
+  view_count?: number;
+  boost_count?: number;
 };
 
 export type Species = {
@@ -98,5 +100,23 @@ export const api = {
     params.set("limit", String(limit));
 
     return request<Species[]>(`/species/search?${params.toString()}`);
+  },
+
+  viewReport: (reportId: string) => {
+    return request<{ id: string; view_count: number; boost_count: number }>(
+      `/reports/${reportId}/view`,
+      {
+        method: "POST",
+      }
+    );
+  },
+
+  boostReport: (reportId: string) => {
+    return request<{ id: string; view_count: number; boost_count: number }>(
+      `/reports/${reportId}/boost`,
+      {
+        method: "POST",
+      }
+    );
   },
 };
