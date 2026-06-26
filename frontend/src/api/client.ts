@@ -1,20 +1,6 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
-const SESSION_KEY = "gaia.session_token";
-
-export function saveToken(token: string) {
-  localStorage.setItem(SESSION_KEY, token);
-}
-
-export function getToken() {
-  return localStorage.getItem(SESSION_KEY);
-}
-
-export function clearToken() {
-  localStorage.removeItem(SESSION_KEY);
-}
-
 export type FireSignal = {
   id: number;
   latitude: number;
@@ -57,20 +43,12 @@ export type Species = {
 };
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const token = getToken();
-
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    ...(options?.headers as Record<string, string> | undefined),
-  };
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options?.headers || {}),
+    },
   });
 
   if (!response.ok) {
@@ -82,30 +60,6 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  register: (email: string, password: string, name: string) => {
-    return request<{ session_token: string | null; user: any }>("/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password, name }),
-    });
-  },
-
-  login: (email: string, password: string) => {
-    return request<{ session_token: string; user: any }>("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-  },
-
-  me: () => {
-    return request<any>("/auth/me");
-  },
-
-  logout: () => {
-    return request<{ ok: boolean }>("/auth/logout", {
-      method: "POST",
-    });
-  },
-
   getFires: (intensity?: string, limit = 100) => {
     const params = new URLSearchParams();
 
