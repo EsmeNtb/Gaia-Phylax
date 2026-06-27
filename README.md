@@ -120,3 +120,18 @@ https://unsplash.com/es/fotos/tortuga-negra-y-marron-en-la-orilla-de-la-playa-du
 
 Axolote:
 https://openverse.org/image/527047f6-b233-42a0-ba4a-aa2f37015e2b?q=axolotl&p=17
+
+Dumpling:
+https://unsplash.com/es/s/fotos/illegal-dumping
+
+Forest:
+https://unsplash.com/es/fotos/tronco-de-arbol-marron-en-un-campo-de-hierba-verde-durante-el-dia-BkTsP32Dfnc
+
+dog:
+https://www.pexels.com/photo/calm-stray-dog-resting-in-urban-park-setting-33291177/
+
+Fire2:
+https://unsplash.com/es/fotos/incendio-forestal-ardiendo-por-la-ladera-al-anochecer-kbTp7dBzHyY
+
+HumanTraps:
+https://openverse.org/image/c06f2603-d608-4098-93c2-608943386289?q=wildlife+trap+human&p=12

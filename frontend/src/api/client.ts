@@ -144,6 +144,7 @@ export const api = {
         }),
       });
     },
+    
   searchTaxonomy: (query: string, limit = 20) => {
     const params = new URLSearchParams();
 
