@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { Species } from "../api/client";
-
+import AppNav from "../components/AppNav";
 function SpeciesPage() {
   const [species, setSpecies] = useState<Species[]>([]);
   const [query, setQuery] = useState("");
@@ -62,9 +62,7 @@ function SpeciesPage() {
           <p>Search scientific names and taxonomy signals from your dataset.</p>
         </div>
 
-        <Link className="secondary-link" to="/map">
-          Back to map
-        </Link>
+        <AppNav/>
       </header>
 
       <section className="species-card">

@@ -5,13 +5,10 @@ import { api } from "../api/client";
 import type { FireSignal, CitizenReport, Species } from "../api/client";
 import FiresMap from "../components/FiresMap";
 
-import iconDirection from "../assets/direction.png";
-import iconSiren from "../assets/siren.png";
 import iconExplotion from "../assets/explosion.png";
-import iconCamera from "../assets/camera.png";
-import iconCat from "../assets/cat_footprint.png";
 import iconLocation from "../assets/pin.png";
 import iconSpecies from "../assets/bird.png";
+import AppNav from "../components/AppNav";
 
 type ExtendedReport = CitizenReport & {
   boost_count?: number;
@@ -111,28 +108,7 @@ function MapPage() {
             <p>Gaia Phylax</p>
             <h1>Planet signals</h1>
           </div>
-
-          <nav className="view-tabs">
-            <Link className="active" to="/map">
-              <img src={iconDirection} alt="Map" />
-              Map
-            </Link>
-
-            <Link to="/board">
-              <img src={iconCamera} alt="Board" />
-              Board
-            </Link>
-
-            <Link to="/urgent">
-              <img src={iconSiren} alt="Urgent" />
-              Urgent
-            </Link>
-
-            <Link to="/pets">
-              <img src={iconCat} alt="Pets" />
-              Pets
-            </Link>
-          </nav>
+          <AppNav/>
         </header>
 
         <section className="map-card">

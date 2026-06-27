@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { api } from "../api/client";
 import type { CitizenReport } from "../api/client";
+import AppNav from "../components/AppNav";
 
 type UrgentReport = CitizenReport & {
   author_name?: string;
@@ -243,9 +244,7 @@ function UrgentPage() {
           </p>
         </div>
 
-        <Link to="/map" className="primary-link">
-          Back to map
-        </Link>
+        <AppNav/>
       </header>
 
       <section className="urgent-card">

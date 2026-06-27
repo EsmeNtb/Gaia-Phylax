@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-
+import AppNav from "../components/AppNav";
 import { api } from "../api/client";
 import type { CitizenReport } from "../api/client";
 
@@ -184,9 +184,7 @@ function hasBoosted(reportId: string) {
           </p>
         </div>
 
-        <Link to="/map" className="primary-link">
-          Back to map
-        </Link>
+        <AppNav/>
       </header>
 
       <section className="board-toolbar">

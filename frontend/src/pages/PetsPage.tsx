@@ -8,6 +8,7 @@ import petCat from "../assets/kitt.png";
 import petCatLove from "../assets/kitt_love.png";
 import petCatSleep from "../assets/kitt_sleppy.png";
 import giftBox from "../assets/giftbox.png";
+import AppNav from "../components/AppNav";
 
 type PetType = "dog" | "cat";
 
@@ -229,9 +230,7 @@ function PetsPage() {
           </p>
         </div>
 
-        <Link to="/map" className="primary-link">
-          Back to map
-        </Link>
+        <AppNav/>
       </header>
 
       {!petState.hasStarted ? (
