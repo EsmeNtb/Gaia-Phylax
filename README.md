@@ -87,3 +87,36 @@ Frontend:
 cd frontend
 npm run dev
 ```
+
+
+
+Material de las fotos
+Xochimilco: https://grupoanimal.mx/estilo-de-vida/limpieza-ciudadana-canal-xochimilco
+ Foto: Sharenii Guzmán.
+
+Tepoztlán: https://www.elfinanciero.com.mx/estados/2025/03/25/incendio-en-tepoztlan-24-horas-de-lucha-contra-el-fuego-fotos/
+ Foto: MARGARITO PÉREZ
+
+Belize city:
+https://unsplash.com/es/s/fotos/mangrove-wetland
+
+Bird:
+https://www.pexels.com/photo/starling-bird-on-green-grass-8891719/
+
+Fishing:
+https://unsplash.com/es/fotos/textil-de-ganchillo-blanco-y-marron-3-3X50TIm-M
+
+Oil:
+https://www.pexels.com/photo/colorful-iridescent-oil-spill-on-asphalt-surface-36759207/
+
+Smoke:
+https://unsplash.com/es/fotos/un-monton-de-basura-encima-de-un-campo-de-tierra-r9GWhOODqoc
+
+Dead Fish:
+https://www.pexels.com/photo/dead-silver-fishes-on-sand-9297009/
+
+Turtle:
+https://unsplash.com/es/fotos/tortuga-negra-y-marron-en-la-orilla-de-la-playa-durante-el-dia-Xchp9dzP0ao
+
+Axolote:
+https://openverse.org/image/527047f6-b233-42a0-ba4a-aa2f37015e2b?q=axolotl&p=17
