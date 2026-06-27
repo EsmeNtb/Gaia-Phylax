@@ -276,25 +276,6 @@ Frontend local URL:
 http://localhost:5173
 ```
 
----
-
-## Future Development
-
-Planned improvements include:
-
-* AI-assisted classification and summarization
-* Species search connected directly to the Animalia taxonomy table
-* Sensitive species location protection
-* NGO and authority routing
-* Moderation dashboard
-* Persistent pet progress through Supabase
-* Mobile responsive layout
-* Advanced local alerts
-* Map-based report creation
-* Report verification workflow
-
----
-
 ## Status
 
 Gaia Phylax is currently a working web MVP prototype.
@@ -302,6 +283,14 @@ Gaia Phylax is currently a working web MVP prototype.
 The current version focuses on environmental reporting, visualization, community engagement, and biodiversity-aware design.
 
 
+```bash
+
+██████╗  ██████╗ ███╗   ███╗██╗███╗   ██╗ ██████╗       ███████╗ ██████╗  ██████╗ ███╗   ██╗
+██╔══██╗██╔═══██╗████╗ ████║██║████╗  ██║██╔════╝       ██╔════╝██╔═══██╗██╔═══██╗████╗  ██║
+██║     ██║   ██║██╔████╔██║██║██╔██╗ ██║██║  ███╗█████╗███████╗██║   ██║██║   ██║██╔██╗ ██║
+██║  ██║██║   ██║██║╚██╔╝██║██║██║╚██╗██║██║   ██║╚════╝╚════██║██║   ██║██║   ██║██║╚██╗██║
+██████╔╝╚██████╔╝██║ ╚═╝ ██║██║██║ ╚████║╚██████╔╝      ███████║╚██████╔╝╚██████╔╝██║ ╚████║
+╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝       ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝
 
 
 
@@ -320,3 +309,24 @@ The current version focuses on environmental reporting, visualization, community
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣤⣾⣅⣩⠏
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⠀⢠⡞⠳⡦⠀⠀⠀⠀⠀⠀⠀⣠⠦⣤⡀⠀⠀⠀⠀⠀⢠⣿⣇⣼⠿⠋⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠓⠒⠒⠖⠲⠒⠒⠛⠀⠀⠀⠀⠀⠀⠙⠓⠒⠒⠒⠒⠒⠦⠶⠴⠿⠶⠶⠴⠖⠒⠒⠒⠚⠛⠉⠁⠀⠀⠀⠀
+```
+
+
+---
+
+## Future Development
+
+Planned improvements include:
+
+* AI-assisted classification and summarization
+* Species search connected directly to the Animalia taxonomy table
+* Sensitive species location protection
+* NGO and authority routing
+* Moderation dashboard
+* Persistent pet progress through Supabase
+* Mobile responsive layout
+* Advanced local alerts
+* Map-based report creation
+* Report verification workflow
+
+---
