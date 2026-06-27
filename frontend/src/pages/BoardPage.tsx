@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import AppNav from "../components/AppNav";
 import { api } from "../api/client";
 import type { CitizenReport } from "../api/client";
@@ -138,12 +137,9 @@ async function handleBoostReport() {
 
   const boostKey = `gaia.boosted_report.${selectedReport.id}`;
 
-  if (localStorage.getItem(boostKey)) {
-    return;
-  }
-
   try {
     const counts = await api.boostReport(selectedReport.id);
+
     updateReportCounts(selectedReport.id, counts);
 
     localStorage.setItem(boostKey, "true");
@@ -226,6 +222,7 @@ function hasBoosted(reportId: string) {
 
                 <footer>
                   <em>— {report.author_name || "Gaia Tester"}</em>
+                  <span>♡ {report.boost_count || 0}</span>
                   <span>👁 {report.view_count || 0}</span>
                 </footer>
               </div>
