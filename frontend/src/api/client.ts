@@ -24,6 +24,7 @@ export type CitizenReport = {
   city?: string;
   urgency?: string;
   status?: string;
+  image_url?: string;
   related_species?: string;
   created_at?: string;
   view_count?: number;

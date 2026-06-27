@@ -15,6 +15,7 @@ class CitizenReportCreate(BaseModel):
     city: str | None = None
     urgency: str | None = "medium"
     status: str | None = "open"
+    image_url: str | None = None
     related_species: str | None = None
 
 
