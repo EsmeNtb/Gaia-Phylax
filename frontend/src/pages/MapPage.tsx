@@ -109,7 +109,7 @@ function MapPage() {
         <header className="top-glass">
           <div className="title-block">
             <p>Gaia Phylax</p>
-            <h1>Planet pulse</h1>
+            <h1>Planet signals</h1>
           </div>
 
           <nav className="view-tabs">
