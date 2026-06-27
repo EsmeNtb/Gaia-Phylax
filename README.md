@@ -4,7 +4,7 @@
 
 The platform turns citizen observations into visible environmental alerts through an interactive map and a community bulletin board. Users can report damaged habitats, pollution, fires, injured animals, endangered species threats, illegal hunting or fishing, and other environmental issues happening near them or around the world.
 
-Gaia Phylax combines citizen reports, biodiversity datasets, environmental alert data, and AI-assisted classification concepts to make conservation more visible, local, and actionable.
+Gaia Phylax combines citizen reports, biodiversity datasets, environmental alert data, and a structure designed for future 
 
 ---
 
@@ -24,17 +24,20 @@ The long-term vision is to support ethical conservation workflows, including del
 
 This prototype currently includes:
 
-* User authentication with Supabase Auth
-* Citizen environmental report submission
-* Image upload through Supabase Storage
-* Interactive environmental map
-* Community bulletin board
-* Urgent reports page
-* Report view and boost counters
-* NASA FIRMS fire signal visualization
-* Animalia taxonomy dataset connection
-* Eco-pet gamification system
-* Profile and logout flow
+- User authentication with Supabase Auth
+- Citizen environmental report submission
+- Manual report categorization and urgency selection
+- Image upload through Supabase Storage
+- Interactive environmental map
+- Community bulletin board
+- Urgent reports page
+- Report view and boost counters
+- NASA FIRMS fire signal visualization
+- Animalia taxonomy dataset stored as biodiversity reference data
+- Eco-pet gamification system
+- Profile and logout flow
+
+The current MVP does not automatically classify reports using AI. Report categories and urgency levels are selected manually by the user.
 
 ---
 
@@ -113,24 +116,6 @@ Gaia Phylax tracks public engagement through:
 
 These signals help identify which reports are receiving community attention and may need faster review or escalation.
 
-### 7. Issues Near Me
-
-A local awareness section designed to highlight environmental alerts close to the user's area.
-
-This feature supports the idea that environmental action should begin with what communities can see, document, and understand locally.
-
-### 8. AI-Assisted Report Organization
-
-AI is planned as a support layer for the platform.
-
-The goal is to help:
-
-* Classify reports
-* Summarize local issues
-* Detect urgency patterns
-* Transform scattered observations into clearer environmental signals
-
-In the current MVP, the system is structured to support AI-generated fields such as category and summary, but full AI automation is part of future development.
 
 ---
 
@@ -150,7 +135,31 @@ Future safeguards may include:
 * Ethical AI classification for sensitive wildlife reports
 
 The goal is to help conservation efforts without unintentionally enabling poaching, harassment of wildlife, or harmful exposure of vulnerable habitats.
+---
+## MVP Scope and Limitations
+The current version focuses on:
 
+- Environmental report submission
+- Manual categorization
+- Map-based visualization
+- Community board display
+- Urgent report prioritization
+- Image storage
+- Basic engagement tracking through views and boosts
+- Biodiversity dataset preparation
+
+The following features are not fully implemented yet and are planned for future development:
+
+- AI-powered automatic classification
+- AI-generated report summaries
+- AI-based urgency detection
+- Full Animalia taxonomy search in the report form
+- Sensitive species location blurring
+- NGO or authority routing
+- Report verification workflow
+- Moderation dashboard
+- Persistent pet progress through Supabase
+- Full mobile responsive design
 ---
 
 ## Datasets
@@ -163,9 +172,9 @@ It includes sample reports with categories, urgency levels, descriptions, photos
 
 ### 2. GBIF Backbone Taxonomy
 
-Used as a taxonomic reference to normalize species names and reduce duplicate or inconsistent species entries.
+The Animalia taxonomy dataset is included as biodiversity reference data.
 
-For this prototype, the Animalia kingdom was used as the main taxonomy subset.
+It is intended to support future species validation, species name normalization, and biodiversity-aware reporting. In the current MVP, the dataset exists as part of the database layer, but full frontend species search and automatic species matching are planned for a later version.
 
 ### 3. GBIF Occurrence Data
 
@@ -209,13 +218,24 @@ Used to visualize fire signals and environmental alerts related to active fire d
 ```bash
 Gaia-Phylax/
 ├── backend/
-│   ├── main.py
+│   ├── data/
+│   │   ├── notebooks/
+│   │       ├── 01.data_preprocessing.ipynb
 │   ├── routers/
+│   │   ├── __init__.py
+│   │   ├── auth.py
 │   │   ├── fire.py
 │   │   ├── reports.py
 │   │   └── species.py
-│   └── services/
-│       └── supabase_client.py
+│   ├──services/
+│   │   └── supabase_client.py
+│   ├──sql/
+│   │    ├── init.sql
+│   │   └── seed.sql
+│   ├── main.py
+│   ├── .env
+│   ├── .gitignore
+│   └── requirements.tsx
 │
 ├── frontend/
 │   ├── src/
@@ -226,29 +246,14 @@ Gaia-Phylax/
 │   │   ├── styles/
 │   │   ├── App.tsx
 │   │   └── main.tsx
-│   └── package.json
+│   └── requirements.txt
 │
 └── README.md
 ```
 
 ---
-
-## Environment Variables
-
-Create a `.env` file inside the `frontend` folder:
-
-```env
-VITE_API_URL=http://127.0.0.1:8000
-
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-The backend should also be configured with Supabase credentials inside the backend environment or Supabase client configuration.
-
----
-
 ## How to Run
+Install the requirements.txt 
 
 ### Backend
 
@@ -257,13 +262,6 @@ cd backend
 .\.venv\Scripts\activate
 uvicorn main:app --reload
 ```
-
-Backend health check:
-
-```txt
-http://127.0.0.1:8000/health
-```
-
 ### Frontend
 
 ```bash
@@ -280,99 +278,6 @@ http://localhost:5173
 
 ---
 
-## Demo Flow
-
-A suggested demo flow:
-
-1. Log in
-2. Open the environmental map
-3. Review fire signals and citizen reports
-4. Create a new environmental report with image and location
-5. Open the community board
-6. View the new report as a postcard
-7. Boost the report
-8. Check the urgent reports page
-9. Open the eco-pets page
-10. Log out from the profile page
-
----
-
-## Prototype Image Credits and References
-
-Some prototype report images were sourced or referenced from the following pages.
-
-### Xochimilco
-
-Source: https://grupoanimal.mx/estilo-de-vida/limpieza-ciudadana-canal-xochimilco
-Photo credit: Sharenii Guzmán
-
-### Tepoztlán Fire
-
-Source: https://www.elfinanciero.com.mx/estados/2025/03/25/incendio-en-tepoztlan-24-horas-de-lucha-contra-el-fuego-fotos/
-Photo credit: Margarito Pérez
-
-### Mangrove / Wetland
-
-Source: https://unsplash.com/es/s/fotos/mangrove-wetland
-
-### Bird
-
-Source: https://www.pexels.com/photo/starling-bird-on-green-grass-8891719/
-
-### Fishing Net
-
-Source: https://unsplash.com/es/fotos/textil-de-ganchillo-blanco-y-marron-3-3X50TIm-M
-
-### Oil Residue
-
-Source: https://www.pexels.com/photo/colorful-iridescent-oil-spill-on-asphalt-surface-36759207/
-
-### Burning Trash / Smoke
-
-Source: https://unsplash.com/es/fotos/un-monton-de-basura-encima-de-un-campo-de-tierra-r9GWhOODqoc
-
-### Dead Fish
-
-Source: https://www.pexels.com/photo/dead-silver-fishes-on-sand-9297009/
-
-### Sea Turtle
-
-Source: https://unsplash.com/es/fotos/tortuga-negra-y-marron-en-la-orilla-de-la-playa-durante-el-dia-Xchp9dzP0ao
-
-### Axolotl
-
-Source: https://openverse.org/image/527047f6-b233-42a0-ba4a-aa2f37015e2b?q=axolotl&p=17
-
-### Illegal Dumping
-
-Source: https://unsplash.com/es/s/fotos/illegal-dumping
-
-### Forest Clearing
-
-Source: https://unsplash.com/es/fotos/tronco-de-arbol-marron-en-un-campo-de-hierba-verde-durante-el-dia-BkTsP32Dfnc
-
-### Stray Dog
-
-Source: https://www.pexels.com/photo/calm-stray-dog-resting-in-urban-park-setting-33291177/
-
-### Wildfire
-
-Source: https://unsplash.com/es/fotos/incendio-forestal-ardiendo-por-la-ladera-al-anochecer-kbTp7dBzHyY
-
-### Wildlife Trap
-
-Source: https://openverse.org/image/c06f2603-d608-4098-93c2-608943386289?q=wildlife+trap+human&p=12
-
----
-
-## Notes on Image Use
-
-This prototype uses images for demonstration purposes only.
-
-For a public deployment, images should be replaced with properly licensed assets, user-submitted photos, or images with confirmed permission and complete attribution.
-
----
-
 ## Future Development
 
 Planned improvements include:
@@ -382,7 +287,6 @@ Planned improvements include:
 * Sensitive species location protection
 * NGO and authority routing
 * Moderation dashboard
-* User reputation and points
 * Persistent pet progress through Supabase
 * Mobile responsive layout
 * Advanced local alerts
@@ -396,3 +300,23 @@ Planned improvements include:
 Gaia Phylax is currently a working web MVP prototype.
 
 The current version focuses on environmental reporting, visualization, community engagement, and biodiversity-aware design.
+
+
+
+
+
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀⠀⠀⠀⠀⡶⠖⣶⠤⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣠⡴⠚⡉⠡⢈⠙⢦⣴⠞⠛⠳⣦⡘⠛⢩⣿⣦⠀⠀⠀⠀⠀⠀⢀⣀⣀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠛⠷⢤⣴⣀⣁⣂⣬⣼⣇⣤⡌⠐⢈⠻⡦⠘⠛⡛⣧⠀⠀⠀⠀⣰⠏⠀⠙⣧⣀⣀⣴⠋⠈⠙⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⡀⠀⣶⠶⠻⢧⡀⢹⣻⡟⣿⠃⣾⣧⠁⣰⣄⠙⣿⣛⠀⣀⣀⣰⠇⠀⠀⠀⠸⢻⠻⠃⠀⠀⠀⢘⣆⣀⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⢀⣴⣾⡝⠛⠛⣀⣴⣾⠧⢼⣯⣧⣿⡷⠇⣻⣀⣯⢹⡀⢄⡿⠀⣉⣽⢿⠃⠠⡾⠆⢠⣷⠄⠰⡷⠀⠘⣿⡽⣧⣀⠀⠀⠀⠀⠀⠀⠀
+⢀⡤⠶⠖⠋⣐⣴⠟⠁⡀⠄⡂⠈⣿⣿⠶⠶⢦⣍⠉⠈⠙⠛⠁⠀⢠⠏⠀⠀⢀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠘⣇⠀⠀⠀⠀⠀⠀⠀
+⡾⠷⢶⡌⠐⠈⡁⢄⣂⡰⢸⡿⣦⣿⣿⢀⠐⡀⠌⣧⠀⠀⠀⠀⢀⣾⣰⠖⠛⠉⠉⠈⢻⡿⣽⠷⣦⡀⠀⠀⠀⢰⣿⡆⠀⠀⠀⠀⠀⠀
+⢴⠛⠉⢰⡟⣧⠀⣸⡟⣇⢈⣷⢹⣿⣿⢦⣔⡀⢂⣿⠀⠀⠀⡴⢋⣿⣿⡆⠀⠀⠀⠀⠀⢷⣾⣿⠋⠁⠀⠀⠀⠀⠙⣻⡄⠀⠀⠀⠀⠀
+⠸⢦⣥⡾⠁⠿⣤⠼⠇⠛⠋⠀⠀⣿⣿⠀⠈⠉⠉⠁⠀⠀⠘⢷⡟⠮⣝⣇⠀⠀⠀⠀⢀⣀⡿⠁⠀⠀⠀⠀⠀⠀⠸⣿⣧⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢸⡏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣻⠀⠀⠀⢸⠇⠀⠀⠻⠤⠶⠖⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⢹⡀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠓⣶⠶⠶⠶⠶⠶⠶⠶⠶⣶⠛⠀⠀⠀⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⡇⠀⣴⣿⣦
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣤⣾⣅⣩⠏
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⠀⢠⡞⠳⡦⠀⠀⠀⠀⠀⠀⠀⣠⠦⣤⡀⠀⠀⠀⠀⠀⢠⣿⣇⣼⠿⠋⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠓⠒⠒⠖⠲⠒⠒⠛⠀⠀⠀⠀⠀⠀⠙⠓⠒⠒⠒⠒⠒⠦⠶⠴⠿⠶⠶⠴⠖⠒⠒⠒⠚⠛⠉⠁⠀⠀⠀⠀
