@@ -2069,3 +2069,582 @@ a {
   padding: 4px 11px;
   border-radius: 999px;
 }
+
+/* =========================
+   PETS PAGE / TAMAGOTCHI
+========================= */
+
+.pets-page {
+  min-height: 100vh;
+  padding: 42px;
+  background:
+    radial-gradient(circle at 20% 6%, rgba(74, 222, 128, 0.18), transparent 28rem),
+    radial-gradient(circle at 84% 16%, rgba(187, 247, 208, 0.22), transparent 24rem),
+    #f8f5eb;
+  color: #102015;
+}
+
+.pets-header {
+  max-width: 1280px;
+  margin: 0 auto 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.pets-header .board-kicker {
+  display: inline-flex;
+  margin: 0 0 14px;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-weight: 950;
+}
+
+.pets-header h1 {
+  margin: 0;
+  color: #102015;
+  font-size: clamp(58px, 7vw, 98px);
+  line-height: 0.86;
+  letter-spacing: -0.09em;
+}
+
+.pets-header p:not(.board-kicker) {
+  margin: 22px 0 0;
+  color: #526152;
+  font-size: 20px;
+  max-width: 650px;
+}
+
+/* Gift screen */
+
+.pet-welcome-card {
+  max-width: 980px;
+  margin: 42px auto 90px;
+  padding: 44px;
+  border-radius: 42px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(187, 247, 208, 0.56), transparent 20rem),
+    #fffdf4;
+  border: 1px solid rgba(16, 32, 21, 0.12);
+  box-shadow: 0 28px 90px rgba(16, 32, 21, 0.12);
+  text-align: center;
+}
+
+.gift-kicker {
+  display: inline-flex;
+  margin: 0 0 18px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 950;
+}
+
+.pet-welcome-card h2 {
+  margin: 0 0 28px;
+  color: #102015;
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+.starter-form {
+  max-width: 760px;
+  margin: 0 auto 30px;
+}
+
+.starter-form label {
+  display: grid;
+  gap: 10px;
+  color: #102015;
+  font-weight: 950;
+  text-align: left;
+}
+
+.starter-form input {
+  width: 100%;
+  border: 1px solid rgba(16, 32, 21, 0.16);
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 17px 22px;
+  color: #102015;
+  font-size: 17px;
+  outline: none;
+}
+
+.starter-form input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+.starter-pet-picker {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.starter-pet-picker button {
+  border: 1.5px solid rgba(16, 32, 21, 0.12);
+  background: #fffdf7;
+  color: #102015;
+  border-radius: 28px;
+  padding: 22px;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 14px 38px rgba(16, 32, 21, 0.06);
+}
+
+.starter-pet-picker button.active,
+.starter-pet-picker button:hover {
+  border-color: #22c55e;
+  background: #ecfdf5;
+  box-shadow: 0 18px 44px rgba(22, 163, 74, 0.13);
+}
+
+.starter-pet-picker img {
+  width: 130px;
+  height: 110px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.starter-pet-picker strong {
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+.starter-pet-picker span {
+  color: #526152;
+  font-weight: 850;
+  font-size: 14px;
+}
+
+.gift-box-button {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  padding: 12px;
+}
+
+.gift-box-button img {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 24px 30px rgba(16, 32, 21, 0.22));
+  animation: giftBounce 1.8s ease-in-out infinite;
+}
+
+.gift-box-button span {
+  display: inline-flex;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 950;
+  box-shadow: 0 14px 34px rgba(22, 163, 74, 0.24);
+}
+
+.gift-box-button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.gift-note {
+  margin: 24px auto 0;
+  max-width: 520px;
+  color: #526152;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+/* Room */
+
+.pet-room-shell {
+  max-width: 1280px;
+  margin: 0 auto 48px;
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.pet-stats-card,
+.pet-room-card {
+  background: #fffdf4;
+  border: 1px solid rgba(16, 32, 21, 0.12);
+  border-radius: 34px;
+  padding: 34px;
+  box-shadow: 0 24px 70px rgba(16, 32, 21, 0.1);
+  color: #102015;
+}
+
+.pet-stats-card h2 {
+  margin: 0 0 8px;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.pet-subtitle {
+  margin: 0 0 30px;
+  color: #43564a;
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 18px 0 8px;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.stat-bar {
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8d7;
+}
+
+.stat-bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #a7f3d0 0%, #22c55e 100%);
+}
+
+.pet-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+}
+
+.pet-actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 15px 22px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 950;
+  box-shadow: 0 14px 32px rgba(22, 163, 74, 0.22);
+}
+
+.pet-room-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.room-badge,
+.room-status {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.room-badge {
+  background: #ecfdf5;
+  color: #166534;
+}
+
+.room-status.awake {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.room-status.sleeping {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.pet-room {
+  position: relative;
+  min-height: 620px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.78), transparent 14rem),
+    linear-gradient(to top, #d4b996 0 20%, transparent 20%),
+    linear-gradient(180deg, #f4ead8 0%, #eadac2 100%);
+  border: 1px solid rgba(16, 32, 21, 0.1);
+}
+
+.pet-character {
+  position: relative;
+  z-index: 3;
+  width: 680px;
+  max-width: 84%;
+  max-height: 620px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 24px 24px rgba(16, 32, 21, 0.2));
+  animation: petIdleLower 2.4s ease-in-out infinite;
+}
+
+.pet-sleeping {
+  animation: petSleepLower 2.8s ease-in-out infinite;
+}
+
+.pet-love-fx {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  z-index: 4;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  color: #ef4444;
+  font-size: 58px;
+  font-weight: 950;
+  pointer-events: none;
+  animation: floatUp 1.2s ease forwards;
+}
+.pet-lock-badge {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.pet-sleep-fx {
+  position: absolute;
+  top: 110px;
+  left: 58%;
+  z-index: 4;
+  display: flex;
+  gap: 7px;
+  color: #1d4ed8;
+  font-size: 52px;
+  font-weight: 950;
+  pointer-events: none;
+}
+
+/* Collection */
+
+.pet-collection-section {
+  max-width: 1280px;
+  margin: 40px auto 100px;
+}
+
+.pet-collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.pet-collection-header .board-kicker {
+  display: inline-flex;
+  margin: 0 0 12px;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-weight: 950;
+}
+
+.pet-collection-header h2 {
+  margin: 0;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.pet-collection-header p {
+  margin: 0;
+  color: #526152;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.pet-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.pet-collection-card {
+  min-height: 300px;
+  padding: 26px;
+  border-radius: 32px;
+  background: #fffdf4;
+  border: 1px solid rgba(16, 32, 21, 0.12);
+  box-shadow: 0 18px 48px rgba(16, 32, 21, 0.08);
+  color: #102015;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+}
+
+.pet-collection-card.active {
+  border-color: #22c55e;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(187, 247, 208, 0.58), transparent 11rem),
+    #fffdf4;
+}
+
+.pet-collection-card img {
+  width: 150px;
+  height: 120px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  margin-bottom: 16px;
+}
+
+.pet-collection-card h3 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  letter-spacing: -0.04em;
+}
+
+.pet-collection-card p {
+  margin: 0 0 16px;
+  color: #526152;
+  font-weight: 850;
+}
+
+.pet-collection-card button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.pet-collection-card.active button {
+  background: #102015;
+}
+
+.locked-pet-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 32px;
+  background: #f1f5f9;
+  color: #9ca3af;
+  font-size: 72px;
+  font-weight: 950;
+}
+
+.pet-collection-card.locked span {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.pet-collection-card.locked button {
+  background: #cbd5e1;
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@keyframes giftBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes petIdleLower {
+  0%, 100% {
+    transform: translateY(70px) scale(1.12);
+  }
+
+  50% {
+    transform: translateY(60px) scale(1.12);
+  }
+}
+
+@keyframes petSleepLower {
+  0%, 100% {
+    transform: translateY(78px) scale(1.12);
+  }
+
+  50% {
+    transform: translateY(82px) scale(1.12);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px) scale(0.9);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50px) scale(1.08);
+  }
+}
+
+@media (max-width: 900px) {
+  .pet-room-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .starter-pet-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-character {
+    width: 360px;
+    max-width: 88%;
+  }
+
+  .pet-room {
+    min-height: 480px;
+  }
+
+  .pet-collection-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
