@@ -223,7 +223,7 @@ function PetsPage() {
       <header className="pets-header">
         <div>
           <p className="board-kicker">Gaia Companion :3</p>
-          <h1>Gaia Pets with love</h1>
+          <h2>Gaia Pets with love</h2>
           <p>
             Care for your baby companion, grow affection, and build your Gaia
             bond.

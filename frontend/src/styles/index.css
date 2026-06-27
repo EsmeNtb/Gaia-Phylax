@@ -1580,7 +1580,40 @@ a {
 .board-status.error {
   color: #dc2626;
 }
+.board-header {
+  max-width: 1280px;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 28px;
+}
 
+.board-header h1 {
+  font-size: clamp(54px, 6.2vw, 88px);
+  line-height: 0.88;
+  letter-spacing: -0.085em;
+  max-width: 760px;
+}
+
+.board-header p:not(.board-kicker) {
+  max-width: 520px;
+}
+
+.board-header .app-nav {
+  justify-self: end;
+  align-self: center;
+}
+
+@media (max-width: 1120px) {
+  .board-header {
+    grid-template-columns: 1fr;
+  }
+
+  .board-header .app-nav {
+    justify-self: start;
+  }
+}
 /* Cork / mural board */
 .postcard-board {
   max-width: 1180px;

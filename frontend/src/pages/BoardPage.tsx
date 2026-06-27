@@ -177,7 +177,7 @@ function hasBoosted(reportId: string) {
       <header className="board-header">
         <div>
           <p className="board-kicker">Community mural</p>
-          <h1>Gaia Phylax Board</h1>
+          <h2>Gaia Phylax Board</h2>
           <p>
             Pinned environmental postcards from citizen reports, field notes,
             and local signals.

@@ -58,7 +58,7 @@ function SpeciesPage() {
       <header className="page-header compact">
         <div>
           <p className="eyebrow">Animalia catalog</p>
-          <h1>Species intelligence</h1>
+          <h2>Species intelligence</h2>
           <p>Search scientific names and taxonomy signals from your dataset.</p>
         </div>
 

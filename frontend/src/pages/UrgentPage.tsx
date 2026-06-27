@@ -237,7 +237,7 @@ function UrgentPage() {
       <header className="board-header">
         <div>
           <p className="board-kicker">High priority signals</p>
-          <h1>Urgent reports</h1>
+          <h2>Urgent reports</h2>
           <p>
             Only high-priority reports, ranked by boosts, views, and newest
             activity.

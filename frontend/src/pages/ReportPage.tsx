@@ -60,7 +60,7 @@ function ReportPage() {
       <header className="page-header compact">
         <div>
           <p className="eyebrow">Citizen signal</p>
-          <h1>New Report</h1>
+          <h2>New Report</h2>
           <p>Send an environmental alert to the Gaia Phylax board.</p>
         </div>
 

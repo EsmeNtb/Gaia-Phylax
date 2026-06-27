@@ -15,7 +15,7 @@ function ProfilePage() {
       <header className="page-header compact">
         <div>
           <p className="home-kicker">Gaia profile</p>
-          <h1>My profile</h1>
+          <h2>My profile</h2>
           <p>Manage your account, session, and Gaia identity.</p>
         </div>
 
