@@ -54,3 +54,6 @@ https://iconos8.es/icon/107436/address
 
 Megafono:
 https://iconos8.es/icon/Qe9Aydjm5wC5/megaphone
+
+Plus:
+https://iconos8.es/icon/uqNQo8v8GhjQ/plus
