@@ -62,6 +62,20 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return response.json();
 }
 
+function getActorKey() {
+  const key = "gaia.actor_key";
+  const existing = localStorage.getItem(key);
+
+  if (existing) {
+    return existing;
+  }
+
+  const created = crypto.randomUUID();
+  localStorage.setItem(key, created);
+
+  return created;
+}
+
 export const api = {
   getFires: (intensity?: string, limit = 100) => {
     const params = new URLSearchParams();
@@ -104,20 +118,38 @@ export const api = {
   },
 
   viewReport: (reportId: string) => {
-    return request<{ id: string; view_count: number; boost_count: number }>(
-      `/reports/${reportId}/view`,
-      {
-        method: "POST",
-      }
-    );
+    return request<{
+      id: string;
+      view_count: number;
+      boost_count: number;
+      added: boolean;
+    }>(`/reports/${reportId}/view`, {
+      method: "POST",
+      body: JSON.stringify({
+        actor_key: getActorKey(),
+      }),
+    });
   },
 
   boostReport: (reportId: string) => {
-    return request<{ id: string; view_count: number; boost_count: number }>(
-      `/reports/${reportId}/boost`,
-      {
+      return request<{
+        id: string;
+        view_count: number;
+        boost_count: number;
+        added: boolean;
+      }>(`/reports/${reportId}/boost`, {
         method: "POST",
-      }
-    );
-  },
+        body: JSON.stringify({
+          actor_key: getActorKey(),
+        }),
+      });
+    },
+  searchTaxonomy: (query: string, limit = 20) => {
+    const params = new URLSearchParams();
+
+    params.set("q", query);
+    params.set("limit", String(limit));
+
+    return request<Species[]>(`/species/taxonomy/search?${params.toString()}`);
+  }
 };

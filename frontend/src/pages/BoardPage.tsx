@@ -125,14 +125,6 @@ function updateReportCounts(
 async function handleOpenReport(report: BoardReport) {
   setSelectedReport(report);
 
-  const viewKey = `gaia.viewed_report.${report.id}`;
-
-  if (localStorage.getItem(viewKey)) {
-    return;
-  }
-
-  localStorage.setItem(viewKey, "true");
-
   try {
     const counts = await api.viewReport(report.id);
     updateReportCounts(report.id, counts);
@@ -150,11 +142,11 @@ async function handleBoostReport() {
     return;
   }
 
-  localStorage.setItem(boostKey, "true");
-
   try {
     const counts = await api.boostReport(selectedReport.id);
     updateReportCounts(selectedReport.id, counts);
+
+    localStorage.setItem(boostKey, "true");
   } catch (error) {
     console.error("Failed to boost report:", error);
   }

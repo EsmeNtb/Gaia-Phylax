@@ -32,3 +32,20 @@ def search_species(
     )
 
     return response.data
+
+
+@router.get("/taxonomy/search")
+def search_taxonomy(
+    q: str = Query(..., min_length=2),
+    limit: int = Query(default=20, ge=1, le=100),
+):
+    response = (
+        supabase
+        .table("animalia_taxonomy")
+        .select("*")
+        .ilike("scientific_name", f"%{q}%")
+        .limit(limit)
+        .execute()
+    )
+
+    return response.data

@@ -4,6 +4,8 @@ from services.supabase_client import supabase
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
+class ReportInteraction(BaseModel):
+    actor_key: str
 
 class CitizenReportCreate(BaseModel):
     title: str
@@ -45,10 +47,13 @@ def create_report(report: CitizenReportCreate):
 
 
 @router.post("/{report_id}/view")
-def increment_report_view(report_id: str):
+def register_report_view(report_id: str, interaction: ReportInteraction):
     response = supabase.rpc(
-        "increment_report_view",
-        {"report_id_input": report_id}
+        "register_report_view",
+        {
+            "report_id_input": report_id,
+            "actor_key_input": interaction.actor_key,
+        },
     ).execute()
 
     if not response.data:
@@ -56,16 +61,20 @@ def increment_report_view(report_id: str):
             "id": report_id,
             "view_count": 0,
             "boost_count": 0,
+            "added": False,
         }
 
     return response.data[0]
 
 
 @router.post("/{report_id}/boost")
-def boost_report(report_id: str):
+def register_report_boost(report_id: str, interaction: ReportInteraction):
     response = supabase.rpc(
-        "boost_report",
-        {"report_id_input": report_id}
+        "register_report_boost",
+        {
+            "report_id_input": report_id,
+            "actor_key_input": interaction.actor_key,
+        },
     ).execute()
 
     if not response.data:
@@ -73,6 +82,7 @@ def boost_report(report_id: str):
             "id": report_id,
             "view_count": 0,
             "boost_count": 0,
+            "added": False,
         }
 
     return response.data[0]
