@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
+import AppNav from "../components/AppNav";
 
 function ReportPage() {
   const navigate = useNavigate();
@@ -63,9 +64,7 @@ function ReportPage() {
           <p>Send an environmental alert to the Gaia Phylax board.</p>
         </div>
 
-        <Link className="secondary-link" to="/map">
-          Back to map
-        </Link>
+        <AppNav/>
       </header>
 
       <section className="report-form-card">
