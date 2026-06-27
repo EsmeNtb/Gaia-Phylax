@@ -23,22 +23,12 @@ const categoryLabels: Record<string, string> = {
   deforestation: "Deforestation",
   water_contamination: "Water contamination",
   flood: "Flood",
+  floods: "Floods",
   flooding: "Flooding",
   wildfire: "Wildfire",
-};
-
-const categoryIcons: Record<string, string> = {
-  pollution: "🧪",
-  habitat_damage: "🏚️",
-  fire: "🔥",
-  injured_animal: "🐾",
-  illegal_dumping: "🗑️",
-  wildlife_risk: "🦎",
-  deforestation: "🌲",
-  water_contamination: "💧",
-  flood: "🌊",
-  flooding: "🌊",
-  wildfire: "🔥",
+  endangered_species: "Endangered species",
+  illegal_hunting_fishing: "Illegal hunting / fishing",
+  other: "Other",
 };
 
 function formatLabel(value?: string) {
@@ -310,8 +300,6 @@ function UrgentPage() {
 
         {urgentReports.map((report, index) => {
           const image = report.photo_url || report.image_url;
-          const icon = categoryIcons[report.category || ""] || "📍";
-
           return (
             <button
               className={`postcard-card tilt-${index % 4}`}
@@ -338,7 +326,7 @@ function UrgentPage() {
                 <h3>{report.title}</h3>
 
                 <p>
-                  {icon} High · {formatDate(report.created_at)}
+                  High priority · {formatDate(report.created_at)}
                 </p>
 
                 <footer>
@@ -396,7 +384,6 @@ function UrgentPage() {
             </div>
 
             <p className="detail-category">
-              {categoryIcons[selectedReport.category || ""] || "📍"}{" "}
               {formatLabel(selectedReport.category)}
             </p>
 

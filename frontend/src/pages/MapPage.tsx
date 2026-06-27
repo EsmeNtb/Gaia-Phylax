@@ -19,7 +19,7 @@ type ExtendedReport = CitizenReport & {
 const categoryLabels: Record<string, string> = {
   pollution: "Pollution",
   habitat_damage: "Habitat damage",
-  fire: "Fire",
+  fire: "Fire / Smoke",
   injured_animal: "Injured animal",
   illegal_dumping: "Illegal dumping",
   wildlife_risk: "Wildlife risk",
@@ -27,6 +27,29 @@ const categoryLabels: Record<string, string> = {
   water_contamination: "Water contamination",
   flood: "Flood",
   floods: "Floods",
+  flooding: "Flooding",
+  wildfire: "Wildfire",
+  endangered_species: "Endangered species",
+  illegal_hunting_fishing: "Illegal hunting / fishing",
+  other: "Other",
+};
+
+const categoryIcons: Record<string, string> = {
+  pollution: "🧪",
+  habitat_damage: "🏚️",
+  fire: "🔥",
+  injured_animal: "🐾",
+  illegal_dumping: "🗑️",
+  wildlife_risk: "🦎",
+  deforestation: "🌲",
+  water_contamination: "💧",
+  flood: "🌊",
+  floods: "🌊",
+  flooding: "🌊",
+  wildfire: "🔥",
+  endangered_species: "🦎",
+  illegal_hunting_fishing: "🚫",
+  other: "📍",
 };
 
 function formatLabel(value?: string) {
